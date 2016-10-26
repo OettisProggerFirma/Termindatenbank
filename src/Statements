@@ -1,0 +1,1 @@
+create table termin (id serial primary key not null,start Timestamp not null,ende Timestamp not null,thema text not null,ort text not null);
