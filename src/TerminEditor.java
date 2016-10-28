@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -15,16 +18,22 @@ public class TerminEditor extends javax.swing.JPanel {
     private javax.swing.JTextArea thema = new JTextArea(20, 20);
     private javax.swing.JTextField ort = new JTextField(20);
     private javax.swing.JButton speichern = new JButton("Speichern");
+    DBVerbindung con;
+
 
     public TerminEditor() {
         super(new BorderLayout());
-
+        try {
+            con = new DBVerbindung();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         JPanel header = new JPanel(new FlowLayout());
         JPanel footer = new JPanel(new FlowLayout());
         header.add(this.start);
         header.add(this.ende);
         header.add(this.ort);
-        this.speichern.addActionListener(new SpeichernListener(this);
+        this.speichern.addActionListener(new SpeichernListener(this));
         footer.add(this.speichern);
 
         this.add(header, BorderLayout.NORTH);
@@ -60,4 +69,28 @@ public class TerminEditor extends javax.swing.JPanel {
         terminAktuell = new Termin(startAktuell, endeAktuell, themaAktuell, ortAktuell);
         return terminAktuell;
     }
+
+
+    private class SpeichernListener implements ActionListener {
+
+        private final Termin t;
+        private final LocalDateTime start;
+        private final LocalDateTime ende;
+        private final String ort;
+        private final String thema;
+
+        private SpeichernListener(TerminEditor e) {
+            this.t = e.holeTermin();
+            this.start = t.getStart();
+            this.ende = t.getEnde();
+            this.ort = t.getOrt();
+            this.thema = t.getThema();
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
 }
+

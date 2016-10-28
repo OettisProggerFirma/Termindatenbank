@@ -6,15 +6,15 @@ import java.time.LocalDateTime;
 /**
  * Created by Denis on 28.10.2016.
  */
-public class SpeichernListener implements ActionListener {
+public class ALT implements ActionListener {
 
-    private final Termin t;
-    private final LocalDateTime start;
-    private final LocalDateTime ende;
-    private final String ort;
-    private final String thema;
+    private  Termin t;
+    private  LocalDateTime start;
+    private  LocalDateTime ende;
+    private  String ort;
+    private  String thema;
 
-    public SpeichernListener(TerminEditor e) {
+    public ALT(TerminEditor e) {
         this.t = e.holeTermin();
     }
 

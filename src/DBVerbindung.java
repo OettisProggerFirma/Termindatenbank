@@ -14,9 +14,9 @@ import java.util.Properties;
 public class DBVerbindung {
 
     private Properties properties = new Properties();
-    private static String url;
-    private static String user;
-    private static String pass;
+    private static String url = "";
+    private static String user = "";
+    private static String pass = "";
     private static Connection con;
 
     public DBVerbindung() throws SQLException {

@@ -14,52 +14,48 @@ public class Frameholder {
 
         TerminEditor editor = new TerminEditor();
         panel.add(editor);
-        try {
-            DBVerbindung con = new DBVerbindung();
-            frame.addWindowListener(new WindowListener() {
 
-                @Override
-                public void windowOpened(WindowEvent e) {
+        frame.addWindowListener(new WindowListener() {
 
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                try {
+                    editor.con.schließen();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
                 }
+            }
 
-                @Override
-                public void windowClosing(WindowEvent e) {
-                    try {
-                        con.schließen();
-                    } catch (SQLException e1) {
-                        e1.printStackTrace();
-                    }
-                }
+            @Override
+            public void windowClosed(WindowEvent e) {
 
-                @Override
-                public void windowClosed(WindowEvent e) {
+            }
 
-                }
+            @Override
+            public void windowIconified(WindowEvent e) {
 
-                @Override
-                public void windowIconified(WindowEvent e) {
+            }
 
-                }
+            @Override
+            public void windowDeiconified(WindowEvent e) {
 
-                @Override
-                public void windowDeiconified(WindowEvent e) {
+            }
 
-                }
+            @Override
+            public void windowActivated(WindowEvent e) {
 
-                @Override
-                public void windowActivated(WindowEvent e) {
+            }
 
-                }
+            @Override
+            public void windowDeactivated(WindowEvent e) {
 
-                @Override
-                public void windowDeactivated(WindowEvent e) {
-
-                }
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            }
+        });
 
         frame.add(panel);
         frame.pack();
