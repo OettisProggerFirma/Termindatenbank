@@ -1,19 +1,25 @@
+import sun.swing.SwingAccessor;
+
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+
+import static java.time.format.FormatStyle.SHORT;
 
 /**
  * Created by doetken on 26.10.2016.
  */
 public class TerminEditor extends javax.swing.JPanel {
 
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
-    private javax.swing.JTextField start = new JTextField(15);
+    private DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(SHORT);
+    private javax.swing.JTextField start = new JTextField("Start: ", 15);
     private javax.swing.JTextField ende = new JTextField(15);
     private javax.swing.JTextArea thema = new JTextArea(20, 20);
     private javax.swing.JTextField ort = new JTextField(20);
@@ -23,6 +29,9 @@ public class TerminEditor extends javax.swing.JPanel {
 
     public TerminEditor() {
         super(new BorderLayout());
+        this.start.setText(formatter.format(LocalDateTime.now()));
+        this.ende.setText(formatter.format(LocalDateTime.now()));
+        Border border = BorderFactory.createLineBorder(Color.BLACK);
         try {
             con = new DBVerbindung();
         } catch (SQLException e) {
@@ -30,9 +39,16 @@ public class TerminEditor extends javax.swing.JPanel {
         }
         JPanel header = new JPanel(new FlowLayout());
         JPanel footer = new JPanel(new FlowLayout());
+        this.start.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        //  JLabel startLabel = new JLabel("Start: ");
+        // header.add(startLabel);
         header.add(this.start);
+        JLabel endeLabel = new JLabel("Ende: ");
+        header.add(endeLabel);
         header.add(this.ende);
-        header.add(this.ort);
+        JLabel ortLabel = new JLabel("Ort: ");
+        footer.add(ortLabel);
+        footer.add(ort);
         this.speichern.addActionListener(new SpeichernListener(this));
         footer.add(this.speichern);
 
@@ -58,12 +74,10 @@ public class TerminEditor extends javax.swing.JPanel {
 
     public Termin holeTermin() {
         Termin terminAktuell;
-        LocalDateTime startAktuell;
-        LocalDateTime endeAktuell;
+        LocalDateTime startAktuell = LocalDateTime.parse(this.start.getText(), formatter);
+        LocalDateTime endeAktuell = LocalDateTime.parse(this.ende.getText(), formatter);
         String themaAktuell;
         String ortAktuell;
-        startAktuell = (LocalDateTime) formatter.parse(this.start.getText());
-        endeAktuell = (LocalDateTime) formatter.parse(this.ende.getText());
         themaAktuell = this.thema.getText();
         ortAktuell = this.ende.getText();
         terminAktuell = new Termin(startAktuell, endeAktuell, themaAktuell, ortAktuell);
