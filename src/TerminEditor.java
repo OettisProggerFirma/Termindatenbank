@@ -1,3 +1,4 @@
+import javafx.scene.layout.Pane;
 import sun.swing.SwingAccessor;
 
 import javax.swing.*;
@@ -43,8 +44,8 @@ public class TerminEditor extends javax.swing.JPanel {
         //  JLabel startLabel = new JLabel("Start: ");
         // header.add(startLabel);
         header.add(this.start);
-        JLabel endeLabel = new JLabel("Ende: ");
-        header.add(endeLabel);
+        //JLabel endeLabel = new JLabel("Ende: ");
+        //header.add(endeLabel);
         header.add(this.ende);
         JLabel ortLabel = new JLabel("Ort: ");
         footer.add(ortLabel);
